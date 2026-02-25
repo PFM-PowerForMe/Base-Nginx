@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+set -e
+
+export CR_NGINX_WORK_DIR="${CR_NGINX_WORK_DIR:-/var/www}"
+# eg. EO-Connecting-IP CF-Connecting-IP
+RAW_HEADER="${CR_NGINX_REAL_IP:-X-Forwarded-For}"
+FORMATTED_HEADER=$(echo "$RAW_HEADER" | tr '[:upper:]-' '[:lower:]_')
+export CR_NGINX_REAL_IP="\$http_${FORMATTED_HEADER}"
+
+envsubst < /etc/nginx/templates/php.tmpl > /tmp/nginx/conf.d/php.conf

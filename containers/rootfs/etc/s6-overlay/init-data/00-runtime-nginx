@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+set -e
+
+mkdir -pv /run/nginx
+chown www-data:www-data -R /run/nginx
+mkdir -pv /tmp/nginx/conf.d
+chown www-data:www-data -R /tmp/nginx

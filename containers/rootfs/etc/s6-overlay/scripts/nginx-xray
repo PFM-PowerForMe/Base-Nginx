@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+set -e
+
+export CR_NGINX_WORK_DIR="${CR_NGINX_WORK_DIR:-/usr/share/nginx/html}"
+export CR_XRAY_WS_PATH="${CR_XRAY_WS_PATH:-ws}"
+
+# eg. EO-Connecting-IP CF-Connecting-IP
+RAW_HEADER="${CR_NGINX_REAL_IP:-X-Forwarded-For}"
+FORMATTED_HEADER=$(echo "$RAW_HEADER" | tr '[:upper:]-' '[:lower:]_')
+export CR_NGINX_REAL_IP="\$http_${FORMATTED_HEADER}"
+
+envsubst < /etc/nginx/templates/xray.tmpl > /tmp/nginx/conf.d/xray.conf

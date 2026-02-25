@@ -1,0 +1,30 @@
+server
+{
+	listen 8080 reuseport default_server;
+	listen [::]:8080 reuseport default_server;
+	server_name _;
+	root $CR_NGINX_WORK_DIR;
+	index index.php index.html index.htm;
+	client_max_body_size 10240M;
+	location /
+	{
+		try_files $$uri $$uri/ /index.php?$$query_string;
+	}
+
+	location ~ \.php$$
+	{
+		try_files $$uri =404;
+		include /etc/nginx/fastcgi_params;
+		fastcgi_buffer_size 32k;
+		fastcgi_buffers 8 16k;
+		fastcgi_busy_buffers_size 32k;
+		fastcgi_read_timeout 300s;
+		fastcgi_pass unix:/run/php-fpm.sock;
+		fastcgi_index index.php;
+		fastcgi_param HTTPS $$fcgi_https;
+		fastcgi_param SCRIPT_FILENAME $$document_root$$fastcgi_script_name;
+		fastcgi_param REMOTE_ADDR $CR_NGINX_REAL_IP;
+		fastcgi_param HTTP_X_REAL_IP $CR_NGINX_REAL_IP;
+		fastcgi_param HTTP_X_FORWARDED_FOR $CR_NGINX_REAL_IP;
+	}
+}
