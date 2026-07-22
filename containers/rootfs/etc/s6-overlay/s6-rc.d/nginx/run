@@ -3,5 +3,5 @@ with-contenv
 s6-notifyoncheck
 foreground { chmod o+w /dev/stdout }
 foreground { chmod o+w /dev/stderr }
-s6-setuidgid www-data
+#s6-setuidgid www-data
 /usr/sbin/nginx
