@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 set -e
 
-# export CR_NGINX_WORK_DIR="${CR_NGINX_WORK_DIR:-/usr/share/nginx/html}"
+export CR_NGINX_WORK_DIR="${CR_NGINX_WORK_DIR:-/usr/share/nginx/html}"
 export CR_XRAY_PATH="${CR_XRAY_PATH:-ws}"
 
 # eg. EO-Connecting-IP CF-Connecting-IP
