@@ -3,6 +3,7 @@ set -e
 
 export CR_NGINX_WORK_DIR="${CR_NGINX_WORK_DIR:-/usr/share/nginx/html}"
 export CR_XRAY_PATH="${CR_XRAY_PATH:-ws}"
+export CR_XRAY2_PATH="${CR_XRAY2_PATH:-ws}"
 
 # eg. EO-Connecting-IP CF-Connecting-IP
 # RAW_HEADER="${CR_NGINX_REAL_IP:-X-Forwarded-For}"
